@@ -69,7 +69,7 @@ def dealerAI():
             deck.remove(newcard)
 
 def hit():
-    playerHand.append(random.choice(deck))
+    drawCards(playerHand)
     if calculateHand(playerHand) > 21:
         return
     else:
@@ -80,7 +80,7 @@ def hit():
         playerInput = input('Would you like to "hit" or "stay"?')
         # if player hits
         if playerInput == 'hit':
-            playerHand.append(random.choice(deck))
+            drawCards(playerHand)
             if calculateHand(playerHand) > 21:
                 betting = False
 
@@ -99,7 +99,6 @@ def stay():
     global dealerWins
     dealerAI()
     if splitYesNo == True:
-        print('TESTING FIRST')
         if calculateHand(dealersHand) > 21 >= calculateHand(playerHand):
             print('Dealer busted with:,', dealersHand, '\nYou WIN')
             playerWins += 1
@@ -108,7 +107,8 @@ def stay():
         elif 21 < calculateHand(playerHand) and 21 < calculateHand(dealersHand):
             print('Player had:', playerHand, 'With a total of:', calculateHand(playerHand))
             print('Dealer had:', dealersHand, 'With a total of:', calculateHand(dealersHand))
-            print("Both player and dealer busted!\nIts a draw")
+            print("Both player and dealer busted!\nYou busted first so you LOSE")
+            dealerWins += 1
             splitStay()
 
         elif 22 > calculateHand(playerHand) > calculateHand(dealersHand):
@@ -150,7 +150,8 @@ def stay():
         elif 21 < calculateHand(playerHand) and 21 < calculateHand(dealersHand):
             print('Player had:', playerHand, 'With a total of:', calculateHand(playerHand))
             print('Dealer had:', dealersHand, 'With a total of:', calculateHand(dealersHand))
-            print("Both player and dealer busted!\nIts a draw")
+            print("Both player and dealer busted!\nYou busted first so you LOSE")
+            dealerWins += 1
             return
         elif 22 > calculateHand(playerHand) > calculateHand(dealersHand):
             print('The dealer had: ', dealersHand, 'With a total of:', calculateHand(dealersHand))
@@ -189,7 +190,8 @@ def splitStay():
     elif 21 < calculateHand(splitPlayerHand) and 21 < calculateHand(dealersHand):
         print('Player had:', splitPlayerHand, 'With a total of:', calculateHand(splitPlayerHand))
         print('Dealer had:', dealersHand, 'With a total of:', calculateHand(dealersHand))
-        print("Both player and dealer busted!\nIts a draw")
+        print("Both player and dealer busted!\nYou busted first so you LOSE")
+        dealerWins += 1
 
     elif 22 > calculateHand(splitPlayerHand) > calculateHand(dealersHand):
         print('The dealer had: ', dealersHand, 'With a total of:', calculateHand(dealersHand))
@@ -220,16 +222,16 @@ def splitStay():
 
 def split():
     splitPlayerHand.append(playerHand[0])
-    splitPlayerHand.append(random.choice(deck))
+    drawCards(splitPlayerHand)
     playerHand.remove(playerHand[1])
-    playerHand.append(random.choice(deck))
+    drawCards(playerHand)
     print('Your split hands are:', playerHand, '&', splitPlayerHand, 'respectivly')
     betting = True
     while betting == True:
         playerInput = input('Would you like to "hit" or "stay" for first hand?')
         # if player hits
         if playerInput == 'hit':
-            playerHand.append(random.choice(deck))
+            drawCards(playerHand)
             if calculateHand(playerHand) > 21:
                 print('Your hand was:', playerHand, '\nWith a new total of:', calculateHand(playerHand))
                 print('You BUSTED!')
@@ -245,7 +247,7 @@ def split():
         playerInput = input('Would you like to "hit" or "stay" for second hand?')
         # if player hits
         if playerInput == 'hit':
-            splitPlayerHand.append(random.choice(deck))
+            drawCards(splitPlayerHand)
             if calculateHand(splitPlayerHand) > 21:
                 print('Your split hand was:', splitPlayerHand, '\nWith a new total of:', calculateHand(splitPlayerHand))
                 print('You BUSTED!')
@@ -309,7 +311,7 @@ def main():
         # testing to get out of gameOn loop
 
 
-    print(f'The dealer had {dealerWins} wins & the player had {playerWins} wins. \ntest OVER**************************')
+    print(f'The dealer had {dealerWins} wins & the player had {playerWins} wins. \nThanks for playing!')
 
 if __name__ == "__main__":
     main()
@@ -327,7 +329,7 @@ def gameLoop():
         playerInput = input('Would you like to "hit" or "stay"?')
         # if player hits
         if playerInput == 'hit':
-            playerHand.append(random.choice(deck))
+            drawCards(playerHand)
             if calculateHand(playerHand) > 21:
                 print('Your hand was:', playerHand, '\nWith a new total of:', calculateHand(playerHand))
                 print('You BUSTED!')

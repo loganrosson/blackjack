@@ -31,6 +31,7 @@ The dealer had:  [6, 5, 7] With a total of: 18
 You LOSE
 Another game? "yes" or "no"?no
 The dealer had 1 wins & the player had 1 wins.
+Thanks for playing!
 ```
 
 ## How a round works
